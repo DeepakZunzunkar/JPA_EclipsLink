@@ -5,6 +5,8 @@
 if this entity mapped table not present in database then this config will create table if not available and if available then use existing for data persisance of this entity
 - if mapped entity table not available in database and table created dynamically using App then order of column in that table ,will not be the same as the order of fields in business entity.it will create column in albhabetically order.
 
+- There is no "findAll" method in JPA API. Spring Data JPA has one but that is NOT the JPA API, and it is hardly "more elegant", simply hiding JPA API code and making the user further from the real code
+
 #### Query
 
 - can we tell JPA/hibernate tool to create ddl with specific column order ? 
