@@ -1,6 +1,6 @@
 package com.dz.eclipsLink.pro;
 
-import java.sql.Date;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -8,9 +8,9 @@ import com.dz.eclipsLink.pro.model.BaseProperties;
 import com.dz.eclipsLink.pro.model.Employee;
 import com.dz.eclipsLink.pro.service.EmployeeService;
 import com.dz.eclipsLink.pro.serviceImpl.EmployeeServiceImpl;
-import com.dz.eclipsLink.pro.utility.DateUtils;
 import com.dz.eclipsLink.pro.utility.Constant.EmployeeStatus;
 import com.dz.eclipsLink.pro.utility.Constant.Gender;
+import com.dz.eclipsLink.pro.utility.DateUtils;
 
 public class App 
 {
@@ -20,22 +20,48 @@ public class App
     	String status;
     	EmployeeService eservice;
 
-    	System.out.println("\n*********************************\n");
-		loader();
-		do
+    	
+    	// display active , inactive and terminated count and recent register list of employee with pagination
+    	// button to register employee
+    	// button to exit and terminate the employee
+    	
+    	eservice = new EmployeeServiceImpl();
+
+		
+    	do
 		{
-			// display active , inactive and terminated count and recent register list of employee with pagination
-			// button to register employee
-			// button to exit and terminate the employee
+    		System.out.println("\n*********************************\n");
+    		intiateLandingPage(eservice);
+    		System.out.println("select your choice \n");
 			
-			eservice = new EmployeeServiceImpl();
-			intiateLandingPage();
+    		System.out.println("1.Regeister Employee ");
+    		System.out.println("2.view all record");
+    		System.out.println("3.Terminate Employee ");
+    		System.out.println("4.Deactivate / Exist Employee from the system ");
 			
-			Employee empTrn= registerEmployeeForm(sc);
-			loader();
-			System.out.println("\n\tbefore persist "+empTrn+"\n");
-			empTrn = eservice.registerEmployee(empTrn);
-			System.out.println("\n\tafter persist "+empTrn);
+			int num =sc.nextInt();
+		
+			switch (num)
+			{
+				case 1:	
+						Employee empTrn= registerEmployeeForm(sc);
+						loader();
+						System.out.println("\n\tbefore persist "+empTrn+"\n");
+						empTrn = eservice.registerEmployee(empTrn);
+						System.out.println("\n\tafter persist "+empTrn);
+						break;
+				case 2:
+						
+						break;
+				case 3:
+
+						break;
+			
+				default:
+						System.out.println("INVALID Choice");
+						break;
+			}
+    		
 			System.out.println("\n\n\tDo u want to continue other operation (yes[y] / no[n] ) ? : ");
 			status=sc.next();	
 		
@@ -91,8 +117,22 @@ public class App
 		}
 		System.out.println("\n");
 	}
-	private static void intiateLandingPage() {
+	private static void intiateLandingPage(EmployeeService eservice) {
+		
+		List<Employee> employeeList =eservice.loadRecentRegistEmployee();
+		
+		System.out.println("\n\nRecently Added Record ::");
+		System.out.println("\n--------------------------------------------------------------------");
+		System.out.println("ID	|	STATUS	|	GENDER	|	AGE	| NAME	 ");
+		System.out.println("---------------------------------------------------------------------");   
+		
+		for(Employee emp:employeeList) {
+			System.out.println(emp.getEid()+"\t|\t"+emp.getStatus()+"\t|\t"+emp.getGender()+"\t|\t"+DateUtils.getAge(DateUtils.convertJUtilDateTimeToString(emp.getBirthDate()))+"\t|\t"+emp.getFirstName()+" "+emp.getLastName());
+		}
+		System.out.println("-----------------------------------------------------------------------\n");
 		
 		
+		
+	
 	}
 }
