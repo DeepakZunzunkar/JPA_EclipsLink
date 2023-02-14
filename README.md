@@ -23,3 +23,10 @@ Maintaining the database via scripts becomes much more necessary once the applic
 
 ```
 
+#### if we close jpa entitymanager ?
+```
+After calling close, the application must not invoke any further methods on the EntityManager
+instance except for getTransaction and isOpen , or the IllegalStateException will be thrown. 
+If the close method is invoked when a transaction is active, the persistence context remains
+managed until the transaction completes.
+```
