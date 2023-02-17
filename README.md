@@ -24,9 +24,34 @@ Maintaining the database via scripts becomes much more necessary once the applic
 ```
 
 #### if we close jpa entitymanager ?
+>Answer1
 ```
 After calling close, the application must not invoke any further methods on the EntityManager
 instance except for getTransaction and isOpen , or the IllegalStateException will be thrown. 
 If the close method is invoked when a transaction is active, the persistence context remains
 managed until the transaction completes.
 ```
+[refference](https://stackoverflow.com/questions/10762974/should-jpa-entity-manager-be-closed#:~:text=The%20EntityManager.,the%20IllegalStateException%20will%20be%20thrown.).
+>Answer2
+ : it totally depends on how we want to used trnsaction in our application.
+```
+Actually entity manager is the key to get access to the persistence context where all the entities reside.
+If our application is a JSE application then we have to consider what is the life expectancy of your context.
+
+Let's consider that you will create an entity manager per user's request.
+So,while you are attending a given request,you will keep your entity manager open, and when you finish with it,you close it.
+
+In a JSE application, you may have considered that you would like to keep your entity manager open 
+the entire life of the application (supposing you're not dealing with big amounts of data) then you close it
+when your application shuts down.
+
+Bottom line, when you open it and when you close depends entirely on your strategy and your design.
+You close it when you no longer need the entities in its context.
+
+In your example,since we are creating the EM in the method, we should close it before returning,
+otherwise, we will no longer have access to it again (unless you're keeping it in some registry, which is not evident in the code).
+
+
+```
+
+### `read more about `[ JPA ](https://github.com/DeepakZunzunkar/Study-Material/blob/master/JAVA/JPA.md)
