@@ -18,13 +18,13 @@ public class ConnectionConfig {
 		return entityManager;
 	}
 	
-	public static void closeConnections(EntityManager entityManager) {
-		
-		entityManager.close();
-		if(emfactory!= null) {
-			emfactory.close();
-		}
-	      
-		
-	}
+//	public static void closeConnections(EntityManager entityManager) {
+//		
+//		entityManager.close();
+//		if(emfactory!= null) {
+//			emfactory.close();
+//		}
+//	      
+//		
+//	}
 }

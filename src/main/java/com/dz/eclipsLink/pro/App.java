@@ -119,7 +119,7 @@ public class App
 	}
 	private static void intiateLandingPage(EmployeeService eservice) {
 		
-		List<Employee> employeeList =eservice.loadRecentRegistEmployee();
+		List<Employee> employeeList =eservice.loadRecentRegistEmployeeByNativeQuery();
 		
 		System.out.println("\n\nRecently Added Record ::");
 		System.out.println("\n--------------------------------------------------------------------");

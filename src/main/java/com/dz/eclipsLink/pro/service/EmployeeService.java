@@ -8,7 +8,7 @@ public interface EmployeeService {
 
 	void intiliseConnection();
 	Employee registerEmployee(Employee employee);
-	List<Employee> loadRecentRegistEmployee();
+	List<Employee> loadRecentRegistEmployeeByNativeQuery();
 //	Boolean terminateEmployee();
 	
 	
