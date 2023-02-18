@@ -7,6 +7,29 @@ if this entity mapped table not present in database then this config will create
 
 - There is no "findAll" method in JPA API. Spring Data JPA has one but that is NOT the JPA API, and it is hardly "more elegant", simply hiding JPA API code and making the user further from the real code
 
+##### steps while creating this JPA application 
+  1. created  persistent.xml file in resources/META-INF folder structure.
+  2. to communicate application with the database we need to obtain Persistence Context.
+     ```
+     Persistence Context is an environment or cache 
+     where entity instances(which are capable of holding data and thereby having the ability 
+     to be persisted in a database) are managed by Entity Manager.It syncs the entity with database.
+     All objects having @Entity annotation are capable of being persisted.
+     @Entity is nothing but a class which helps us create objects in order to communicate with the database.
+     And the way the objects communicate is using methods.And who supplies those methods is the Entity Manager.
+     
+     ```
+  3. we can access the Persistence Context by using the APIs in EntityManager.
+  4. EntityManager instance get through EntityManagerFactory instance and it is obtained by bootstrap class Persistence as below .
+```
+EntityManagerFactory emfactory 
+  = Persistence.createEntityManagerFactory("value of name attribute of persistence-unit tag in persistent.xml file");      
+EntityManager entitymanager = emfactory.createEntityManager();
+```
+ 5. Every time we call createEntityManager() method, it will return a new instance of EntityManager.
+ 6. the object referenced by an entity is managed by entity manager .i.e An EntityManager object manages a set of entities that are defined by a persistence unit.
+ 7. EntityManager interface is used to allow applications to manage and search for entities in the relational database.
+
 #### Query
 
 - can we tell JPA/hibernate tool to create ddl with specific column order ? 
